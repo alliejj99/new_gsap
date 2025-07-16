@@ -129,21 +129,14 @@
       <p>GSAP scrollTrigger - 애니메이션 기본 효과</p>
 
       <ul>
-        <li class="active"><a href="01.GSAP_parallax_effect.html">1</a></li>
-        <li><a href="02.GSAP_parallax_effect">2</a></li>
-        <li><a href="03.GSAP_parallax_effect">3</a></li>
-        <li><a href="04.GSAP_parallax_effect">4</a></li>
-        <li><a href="05.GSAP_parallax_effect">5</a></li>
-        <li><a href="06.GSAP_parallax_effect">6</a></li>
-        <li><a href="07.GSAP_parallax_effect">7</a></li>
-        <li><a href="08.GSAP_parallax_effect">8</a></li>
-        <li><a href="09.GSAP_parallax_effect">9</a></li>
-        <li><a href="10.GSAP_parallax_effect">10</a></li>
-        <li><a href="11.GSAP_parallax_effect">11</a></li>
-        <li><a href="12.GSAP_parallax_effect">12</a></li>
-        <li><a href="13.GSAP_parallax_effect">13</a></li>
-        <li><a href="14.GSAP_parallax_effect">14</a></li>
-        <li><a href="15.GSAP_parallax_effect">15</a></li>
+        <li class="active"><a href="#section1">1</a></li>
+        <li><a href="#section2">2</a></li>
+        <li><a href="#section3">3</a></li>
+        <li><a href="#section4">4</a></li>
+        <li><a href="#section5">5</a></li>
+        <li><a href="#section6">6</a></li>
+        <li><a href="#section7">7</a></li>
+        <li><a href="#section8">8</a></li>
       </ul>
     </header>
 
@@ -195,12 +188,6 @@
         <div class="parallax__item__img"></div>
       </section>
       <!-- //section8 -->
-
-      <section id="section9" class="parallax__item">
-        <span class="parallax__item__num">09</span>
-        <div class="parallax__item__img"></div>
-      </section>
-      <!-- //section9 -->
     </main>
 
     <!-- GSAP Core -->
@@ -217,7 +204,137 @@
       const box6 = document.querySelector('#section6 .parallax__item__img');
       const box7 = document.querySelector('#section7 .parallax__item__img');
       const box8 = document.querySelector('#section8 .parallax__item__img');
-      const box9 = document.querySelector('#section9 .parallax__item__img');
+
+      // box1 Animation - [기본 애니메이션] 이동하며 border-radius 변화
+      gsap.to(box1, {
+        duration: 2,
+        x: 500,
+        borderRadius: 100,
+        rotation: 360,
+      });
+
+      // box2 Animation - [Trigger] 스크롤을 내리고 요소가 보이는 영역에 오면 움직이도록 설정
+      gsap.to(box2, {
+        duration: 2,
+        x: 500,
+        rotation: 365,
+        borderRadius: 100,
+        scrollTrigger: {
+          trigger: box2, // ✅ 시작점을 설정
+        },
+      });
+
+      // box3 Animation - [toggleActions] 애니메이션이 시작했을 때, 애니메이션이 끝났을 때, 애니메이션이 시작하고 화면에 보이지 않을 때, 애니메이션이 끝나고 화면에 보이지 않을 때 4가지로 설정
+      // onEnter, onLeave, onEnterBack, onLeaveBack를 의미하며, 여기에는 play, pause, resume, reset, restart, complete, reverse, none 요소 값을 설정할 수 있습니다. 하나씩 대입하면서 눈으로 직접확인하는 것이 가장 정확합니다.
+      gsap.to(box3, {
+        duration: 2,
+        x: 500,
+        rotation: 365,
+        borderRadius: 100,
+        scrollTrigger: {
+          trigger: box3,
+          toggleActions: 'play pause revers none',
+        },
+      });
+
+      // box4 Animation - [start, end] 애니메이션이 언제 시작하는지, 끝나는지를 설정
+      // trigger는 애니메이션의 기준점 역할을 하고, start는 시작점을 의미
+      // start와 end는 두가지 요소 값을 설정
+      // 첫 번째 요소는 요소의 시작점을 의미하고, 두 번째 요소는 브라우저의 시작점을 의미
+      // 요소의 시작점과 브라우저의 시작점이 만나면 애니메이션이 작동되는 원리!
+      // 여기에는 top, bottom, left, right, center를 사용할 수 있으며, px이나 % 사용도 가능
+      // 여기에서 markers: true로 설정하면 마커의 위치를 확인할 수 있습니다.
+      gsap.to(box4, {
+        duration: 2,
+        x: 500,
+        rotation: 365,
+        borderRadius: 100,
+
+        scrollTrigger: {
+          trigger: box4,
+          start: 'top 50%',
+          end: 'bottom 20%',
+          toggleActions: 'play pause revers none',
+          // markers: true,
+        },
+      });
+
+      // box5 Animation - [scrub] 스크롤을 내리면 같이 움직이게 설정
+      // 기본 scrollTrigger를 설정하면, 시작점이 되었을 때 한번만 움직이지만, 이 효과는 마우스 스크롤 값에 따라 움직이도록 설정
+      gsap.to(box5, {
+        duration: 1,
+        x: 500,
+        rotation: 360,
+        borderRadius: 100,
+
+        scrollTrigger: {
+          trigger: box5,
+          start: 'top 50%',
+          end: 'bottom 20%',
+          scrub: 1, // true, 1,2
+        },
+      });
+
+      // box6 Animation - [pin] 속성은 고정시키는 역할을 합니다. 패럴랙스 이펙트에서 많이 쓰이는 효과
+      gsap.to(box6, {
+        duration: 2,
+        x: 500,
+        rotation: 360,
+        borderRadius: 100,
+
+        scrollTrigger: {
+          trigger: box6,
+          start: 'top 50%',
+          end: 'top 100px',
+          pin: true,
+          scrub: 2,
+        },
+      });
+
+      // box7 Animation - [toggleClass] 시작점에 됐을 때 애니메이션도 줄 수 있지만 class도 추가할 수 있습니다.
+      gsap.to(box7, {
+        duration: 2,
+        x: 500,
+        rotation: 360,
+        borderRadius: 100,
+
+        scrollTrigger: {
+          trigger: box7,
+          start: 'top center',
+          end: 'bottom top',
+          pin: true,
+          scrub: 2,
+          toggleClass: 'active',
+          id: 'box7',
+        },
+      });
+
+      // box8 Animation - [callback]
+      // 콜백함수는 하나의 함수를 실행하고 그 다음 함수를 실행하는 함수
+      // 보통은 두개의 함수를 실행시키면 동시에 실행되지만, 콜백함수는 하나의 함수가 실행되고,
+      // 끝나면 그 다음 함수가 실행되는 함수라고 생각하시면 이해하기가 편합니다.
+      // scrollTrigger 역시 여러가지 콜백함수를 제공.
+      // toggleActions 처럼 onEnter, onLeave, onEnterBack, onLeaveBack 메서드를 제공하며,
+      // onUpdate이나 onToggle 같은 메서드도 제공합니다.
+      gsap.to(box8, {
+        duration: 2,
+        x: 500,
+        rotation: 360,
+        borderRadius: 100,
+
+        scrollTrigger: {
+          trigger: box8,
+          start: 'top center',
+          end: 'bottom 30%',
+          scrub: 2,
+          // onEnter : () => {console.log("onEnter")},
+          // onLeave : () => {console.log("onLeave")},
+          // onEnterBack : () => {console.log("onEnterBack")},
+          // onLeaveBack : () => {console.log("onLeaveBack")},
+          // onUpdate : (self) => {console.log("onUpdate", self.progress.toFixed(3))},
+          onToggle: self => {console.log('onToggle', self.isActive);},
+        },
+      });
     </script>
   </body>
 </html>
